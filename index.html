@@ -7,7 +7,9 @@
     <meta charset="UTF-8">
     <title>Train Tracker</title>
 
-    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -35,11 +37,12 @@
                 <div class="card mb-4">
                     <div class="card-header">The Trains</div>
                     <div class="card-body">
-                        <table class="table table-sm table-hover" id='employee-table'>
+                        <table class="table table-sm table-hover" id='train-table'>
                             <thead>
                                 <tr>
                                     <th scope="col">Train Name</th>
                                     <th scope="col">Destination</th>
+                                    <th scope="col">Frequency</th>
                                     <th scope="col">Next Arrival</th>
                                     <th scope="col">Wait Time</th>
                                 </tr>

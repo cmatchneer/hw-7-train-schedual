@@ -12,37 +12,57 @@ $(document).ready(function() {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     var database = firebase.database();
+    var currentTime = moment();
+
     //add train button called
     $(document).on("click", "#add-train-btn", addTrain);
 
     function addTrain() {
-        console.log("test");
+
         event.preventDefault();
 
         // Grabs user input
         var theTrain = $("#trainName").val().trim();
         var theLocation = $("#destination").val().trim();
-        var theDepature = moment($("#depature").val().trim(), "hh:mm:ss").format("X");
-        var theFrequency = moment($("#frequency").val().trim(), "hh:mm:ss").format("X");
+        var theDepature = moment($("#depature").val().trim(), "HH:mm").format("hh:mm");
+        var theFrequency = moment($("#frequency").val().trim(), "mm").format("mm");
 
-        // Creates local "temporary" object
+
+        // creating a object to put into my database
         var newTrain = {
             train: theTrain,
             place: theLocation,
             depature: theDepature,
             frequency: theFrequency
         };
-        console.log(newTrain);
+
 
         // Uploads to the database
         database.ref().push(newTrain);
-        console.log(newTrain.train);
+
         // Clears all of the text-boxes
         $("#trainName").val("");
         $("#destination").val("");
         $("#depature").val("");
         $("#frequency").val("");
     }
+    //this functions runs when a child is added to database
+    database.ref().on("child_added", function(snapshot) {
+        var theTrain = snapshot.val().train;
+        var theLocation = snapshot.val().place;
+        var theDepature = snapshot.val().depature;
+        var theFrequency = snapshot.val().frequency;
+
+        var newRow = $("<tr>").append(
+            $("<td>").text(theTrain),
+            $("<td>").text(theLocation),
+            $("<td>").text(theFrequency)
+        );
+        console.log(newRow)
+        $("#train-table > tbody").append(newRow);
+
+
+    })
 
 
 })
