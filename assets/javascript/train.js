@@ -66,10 +66,14 @@ $(document).ready(function() {
             for (var i = 0; i < theTrain.length; i++) {
                 if (theTrain.charAt(i) === " ") {
                     trainLetter = theTrain.charAt(i + 1);
-                    console.log(trainLetter);
+                    trainLetterCap = theTrain.charAt(i + 1).toUpperCase();
+                    theTrain = theTrain.replace(trainLetter, trainLetterCap);
+                    console.log(trainLetterCap);
                 }
-
             }
+        }
+        if (theLocation.length > 0) {
+
         }
 
 
