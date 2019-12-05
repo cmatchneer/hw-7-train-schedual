@@ -12,7 +12,7 @@ $(document).ready(function() {
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     var database = firebase.database();
-    var currentTime = moment();
+
 
     //add train button called
     $(document).on("click", "#add-train-btn", addTrain);
@@ -26,6 +26,7 @@ $(document).ready(function() {
         var theLocation = $("#destination").val().trim();
         var theDepature = moment($("#depature").val().trim(), "HH:mm").format("hh:mm");
         var theFrequency = moment($("#frequency").val().trim(), "mm").format("mm");
+
 
 
         // creating a object to put into my database
@@ -52,13 +53,33 @@ $(document).ready(function() {
         var theLocation = snapshot.val().place;
         var theDepature = snapshot.val().depature;
         var theFrequency = snapshot.val().frequency;
+        var firstTimeConverted = moment(theDepature, "HH:mm").subtract(1, "years");
+        var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+        var tRemainder = diffTime % theFrequency;
+        var tMinutesTillTrain = theFrequency - tRemainder;
+        var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+
+        if (theTrain.length > 0) {
+            firstTrainLetter = theTrain.charAt(0);
+            firstTrainLetterCap = theTrain.charAt(0).toUpperCase();
+            theTrain = theTrain.replace(firstTrainLetter, firstTrainLetterCap);
+            for (var i = 0; i < theTrain.length; i++) {
+                if (theTrain.charAt(i) === " ") {
+                    trainLetter = theTrain.charAt(i + 1);
+                    console.log(trainLetter);
+                }
+
+            }
+        }
+
 
         var newRow = $("<tr>").append(
             $("<td>").text(theTrain),
             $("<td>").text(theLocation),
-            $("<td>").text(theFrequency)
+            $("<td>").text(theFrequency),
+            $("<td>").text(moment(nextTrain).format("hh:mm")),
+            $("<td>").text(tMinutesTillTrain)
         );
-        console.log(newRow)
         $("#train-table > tbody").append(newRow);
 
 
