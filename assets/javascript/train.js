@@ -58,22 +58,20 @@ $(document).ready(function() {
         var tRemainder = diffTime % theFrequency;
         var tMinutesTillTrain = theFrequency - tRemainder;
         var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-
+        //make first letter in each word capitalized
         if (theTrain.length > 0) {
-            firstTrainLetter = theTrain.charAt(0);
-            firstTrainLetterCap = theTrain.charAt(0).toUpperCase();
-            theTrain = theTrain.replace(firstTrainLetter, firstTrainLetterCap);
-            for (var i = 0; i < theTrain.length; i++) {
-                if (theTrain.charAt(i) === " ") {
-                    trainLetter = theTrain.charAt(i + 1);
-                    trainLetterCap = theTrain.charAt(i + 1).toUpperCase();
-                    theTrain = theTrain.replace(trainLetter, trainLetterCap);
-                    console.log(trainLetterCap);
-                }
+            var theTrainSplit = theTrain.toLowerCase().split(" ");
+            for (var i = 0; i < theTrainSplit.length; i++) {
+                theTrainSplit[i] = theTrainSplit[i].charAt(0).toUpperCase() + theTrainSplit[i].substring(1);
+                theTrain = theTrainSplit.join(" ")
             }
         }
         if (theLocation.length > 0) {
-
+            var locationSplit = theLocation.toLowerCase().split(" ");
+            for (var j = 0; j < locationSplit.length; j++) {
+                locationSplit[j] = locationSplit[j].charAt(0).toUpperCase() + locationSplit[j].substring(1);
+                theLocation = locationSplit.join(" ");
+            }
         }
 
 
