@@ -7,6 +7,11 @@ td {
     color: white;
 }
 
+body {
+    font-family: 'Noto Serif', serif;
+    background-color: teal;
+}
+
 .card-header {
     background: black;
     color: white;
